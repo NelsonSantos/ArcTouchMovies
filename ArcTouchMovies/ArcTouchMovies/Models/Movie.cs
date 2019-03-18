@@ -49,6 +49,6 @@ namespace ArcTouchMovies.Models
         public int[] GenreIds { get; set; }
 
         [JsonProperty("release_date")]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
     }
 }

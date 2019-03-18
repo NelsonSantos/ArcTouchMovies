@@ -8,8 +8,11 @@
              Title="{Binding Title}"
              x:Name="BrowseItemsPage"
              >
+    <NavigationPage.TitleView>
+        <SearchBar x:Name="SearchBar" BackgroundColor="White" IsVisible="{Binding IsSearch}" Text="{Binding SearchKey}" SearchCommand="{Binding SearchItemsCommand}" Placeholder="Search" PlaceholderColor="LightGray" HorizontalOptions="FillAndExpand"/>
+    </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="ic_action_search_solid.png" />
+        <ToolbarItem Icon="ic_action_search_solid.png" Command="{Binding OpenSearchCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>

@@ -18,11 +18,22 @@ namespace ArcTouchMovies.Views
     {
         ItemsViewModel viewModel;
 
-        public ItemsPage()
+        public ItemsPage() 
+            : this(false)
+        {
+        }
+        public ItemsPage(bool isSearch = false)
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            if (!isSearch)
+            {
+                NavigationPage.SetTitleView(this, null);
+            }
+
+            BindingContext = viewModel = new ItemsViewModel(isSearch);
+
+
         }
 
         protected override void OnAppearing()

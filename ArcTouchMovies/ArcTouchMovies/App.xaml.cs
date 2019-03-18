@@ -17,10 +17,10 @@ namespace ArcTouchMovies
             Xamarin.Forms.DependencyService.Register<Services.NavigationService>();
             Xamarin.Forms.DependencyService.Register<Services.BasicDataStore>();
 
-            NavigationPage = new CustomNavigationPage(new ItemsPage());
+            NavigationPage = new NavigationPage(new ItemsPage());
             this.MainPage = NavigationPage;
         }
-        public static CustomNavigationPage NavigationPage { get; set; }
+        public static NavigationPage NavigationPage { get; set; }
         protected override void OnStart()
         {
             // Handle when your app starts

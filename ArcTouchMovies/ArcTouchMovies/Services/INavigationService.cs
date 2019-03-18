@@ -7,5 +7,6 @@ namespace ArcTouchMovies.Services
     {
         Task NavigateBack();
         Task NavigateToMovieDetails(Movie movie);
+        Task NavigateToMovieSearch();
     }
 }

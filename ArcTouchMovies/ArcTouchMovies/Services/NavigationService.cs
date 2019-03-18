@@ -15,5 +15,10 @@ namespace ArcTouchMovies.Services
         {
             await Xamarin.Forms.Application.Current.MainPage.Navigation.PushAsync(new ItemDetailPage(new ViewModels.ItemDetailViewModel(movie)));
         }
+        public async Task NavigateToMovieSearch()
+        {
+            await Xamarin.Forms.Application.Current.MainPage.Navigation.PushAsync(new ItemsPage(true));
+        }
+
     }
 }

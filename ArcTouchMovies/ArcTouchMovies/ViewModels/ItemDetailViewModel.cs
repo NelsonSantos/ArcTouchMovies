@@ -8,6 +8,7 @@ namespace ArcTouchMovies.ViewModels
         public Movie SelectedMovie { get; }
         public ItemDetailViewModel(Movie movie)
         {
+            this.Title = "Movie Details";
             this.SelectedMovie = movie;
         }
     }
