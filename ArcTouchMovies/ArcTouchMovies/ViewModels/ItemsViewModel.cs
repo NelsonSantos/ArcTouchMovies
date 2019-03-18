@@ -27,7 +27,7 @@ namespace ArcTouchMovies.ViewModels
             this.LoadItemsCommand.Execute(null);
         }
         public int Page { get; set; } = 1;
-        public int TotalPages { get; set; } = 0;
+        public int TotalPages { get; set; } = 1;
         private async Task LoadItems()
         {
             //if (IsBusy)
