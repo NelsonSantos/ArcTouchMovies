@@ -1,46 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:customControls="clr-namespace:ArcTouchMovies.CustomControls;assembly=ArcTouchMovies"
+             xmlns:arcTouchMovies="clr-namespace:ArcTouchMovies;assembly=ArcTouchMovies"
              x:Class="ArcTouchMovies.Views.ItemsPage"
-              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
+             Title="{Binding Title}"
+             x:Name="BrowseItemsPage"
+             >
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked">
-            <ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP" Value="add.png"/>
-                </OnPlatform>
-            </ToolbarItem.Icon>
-        </ToolbarItem>
+        <ToolbarItem Icon="ic_action_search_solid.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="ItemsListView" 
-                ItemsSource="{Binding Items}"
+            <!--
+            RefreshCommand="{Binding ExecuteLoadItemsCommand}"
+            IsPullToRefreshEnabled="true"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}">-->
+            <customControls:ListViewEx
+                BackgroundColor="White"
+                ItemTappedCommand="{Binding MovieSelectedCommand}"
+                PageLoadCommand="{Binding LoadItemsCommand}"
+                IsSelectedItemNullOnTapped="True"
+                ItemsSource="{Binding Movies}"
                 VerticalOptions="FillAndExpand"
-                 HasUnevenRows="true"
-                 RefreshCommand="{Binding LoadItemsCommand}"
-                 IsPullToRefreshEnabled="true"
-                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                 CachingStrategy="RecycleElement"
-                 ItemSelected="OnItemSelected">
+                HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Text}" 
-                       LineBreakMode="NoWrap" 
-                       Style="{DynamicResource ListItemTextStyle}" 
-                       FontSize="16" />
-                                <Label Text="{Binding Description}" 
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemDetailTextStyle}"
-                       FontSize="13" />
-                            </StackLayout>
+                            <Grid RowSpacing="5" ColumnSpacing="10" Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <forms:CachedImage Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                                       Aspect="AspectFit"
+                                       DownsampleToViewSize="True"
+                                       CacheDuration="5"
+                                       CacheType="Disk"
+                                       Source="{Binding Poster}"
+                                       WidthRequest="50"/>
+                                <Label Grid.Column="1" Grid.Row="0" FontAttributes="Bold" Text="{Binding Title}" />
+                                <Label Grid.Column="1" Grid.Row="1" FontSize="12" Text="{Binding GenreList}" />
+                                <Label Grid.Column="1" Grid.Row="2" FontSize="12">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="&#xf274; " FontFamily="{StaticResource FontAwesomeName}" TextColor="Blue"/>
+                                            <Span Text="{Binding ReleaseDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </customControls:ListViewEx>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

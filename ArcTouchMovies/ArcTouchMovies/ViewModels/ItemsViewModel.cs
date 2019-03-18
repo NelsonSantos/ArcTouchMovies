@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 
 using ArcTouchMovies.Models;
@@ -12,47 +12,47 @@ namespace ArcTouchMovies.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public ObservableCollection<Movie> Movies { get; set; } = new ObservableCollection<Movie>();
+        public ICommand LoadItemsCommand { get; }
+        public ICommand MovieSelectedCommand { get; }
 
         public ItemsViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            Title = "ArcTouch Movies";
+            Movies = new ObservableCollection<Movie>();
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            this.MovieSelectedCommand = new Command<Movie>(async (movie) => await this.MovieSelected(movie));
+
+            this.LoadItemsCommand = new Command(async () => await LoadItems());
+            this.LoadItemsCommand.Execute(null);
+        }
+        public int Page { get; set; } = 1;
+        public int TotalPages { get; set; } = 0;
+        private async Task LoadItems()
+        {
+            //if (IsBusy)
+            //    return;
+
+            //IsBusy = true;
+
+            if (this.Page > this.TotalPages) return;
+
+            var _result = await this.Get<MovieApiListResponse<Movie>>(BaseUrl, $"movie/upcoming?api_key={ApiKey}&language=en-US&page={this.Page}");
+
+            this.TotalPages = _result.TotalPages;
+            this.Page++;
+
+            foreach (var _movie in _result.Results)
             {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
+                this.Movies.Add(_movie);
+            }
+
+            //IsBusy = false;
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task MovieSelected(Movie movie)
         {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            await this.NavigationService.NavigateToMovieDetails(movie);
         }
     }
 }

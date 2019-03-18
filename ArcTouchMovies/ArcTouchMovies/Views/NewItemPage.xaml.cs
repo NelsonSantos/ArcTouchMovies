@@ -11,25 +11,25 @@ namespace ArcTouchMovies.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        //public Item Item { get; set; }
 
-        public NewItemPage()
-        {
-            InitializeComponent();
+        //public NewItemPage()
+        //{
+        //    InitializeComponent();
 
-            Item = new Item
-            {
-                Text = "Item name",
-                Description = "This is an item description."
-            };
+        //    Item = new Item
+        //    {
+        //        Text = "Item name",
+        //        Description = "This is an item description."
+        //    };
 
-            BindingContext = this;
-        }
+        //    BindingContext = this;
+        //}
 
-        async void Save_Clicked(object sender, EventArgs e)
-        {
-            MessagingCenter.Send(this, "AddItem", Item);
-            await Navigation.PopModalAsync();
-        }
+        //async void Save_Clicked(object sender, EventArgs e)
+        //{
+        //    MessagingCenter.Send(this, "AddItem", Item);
+        //    await Navigation.PopModalAsync();
+        //}
     }
 }

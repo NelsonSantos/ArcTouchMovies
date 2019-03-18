@@ -9,29 +9,31 @@ using ArcTouchMovies.ViewModels;
 namespace ArcTouchMovies.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ItemDetailPage : ContentPage
+    public partial class ItemDetailPage : BasePage
     {
-        ItemDetailViewModel viewModel;
+        private ItemDetailViewModel m_ViewModel;
 
         public ItemDetailPage(ItemDetailViewModel viewModel)
         {
             InitializeComponent();
-
-            BindingContext = this.viewModel = viewModel;
+            m_ViewModel = viewModel;
+            this.SetContent(this.Orientation);
+            OnOrientationChanged += ItemDetailPage_OnOrientationChanged;
         }
 
-        public ItemDetailPage()
+        private void ItemDetailPage_OnOrientationChanged(object sender, PageOrientationEventArgs e)
         {
-            InitializeComponent();
+            this.SetContent(e.Orientation);
+        }
 
-            var item = new Item
-            {
-                Text = "Item 1",
-                Description = "This is an item description."
-            };
+        private void SetContent(Xamarin.Essentials.DisplayOrientation orientation)
+        {
+            if (orientation == Xamarin.Essentials.DisplayOrientation.Portrait)
+                this.Content = new CustomViews.MovieDetailsVertical();
+            else
+                this.Content = new CustomViews.MovieDetailsHorizontal();
 
-            viewModel = new ItemDetailViewModel(item);
-            BindingContext = viewModel;
+            this.BindingContext = m_ViewModel;
         }
     }
 }

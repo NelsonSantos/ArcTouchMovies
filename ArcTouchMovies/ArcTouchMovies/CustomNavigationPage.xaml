@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NavigationPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ArcTouchMovies.CustomNavigationPage"
+    xmlns:iOS="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:arcTouchMovies="clr-namespace:ArcTouchMovies;assembly=ArcTouchMovies"
+    iOS:NavigationPage.IsNavigationBarTranslucent="True"
+    x:Name="CustomNavigationPageName"
+    BarTextColor="White">
+    <NavigationPage.Triggers>
+        <Trigger TargetType="arcTouchMovies:CustomNavigationPage" Property="IsFirstPage" Value="False">
+            <Setter Property="BarBackgroundColor">
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="Android, iOS" Value="Transparent" />
+                </OnPlatform>
+            </Setter>
+        </Trigger>
+    </NavigationPage.Triggers>
+    <!--<NavigationPage.BarBackgroundColor>
+    </NavigationPage.BarBackgroundColor>-->
+</NavigationPage>	

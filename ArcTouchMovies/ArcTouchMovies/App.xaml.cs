@@ -1,4 +1,5 @@
 ﻿using System;
+using ArcTouchMovies.ApiAccess;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ArcTouchMovies.Views;
@@ -13,10 +14,13 @@ namespace ArcTouchMovies
         {
             InitializeComponent();
 
+            Xamarin.Forms.DependencyService.Register<Services.NavigationService>();
+            Xamarin.Forms.DependencyService.Register<Services.BasicDataStore>();
 
-            MainPage = new MainPage();
+            NavigationPage = new CustomNavigationPage(new ItemsPage());
+            this.MainPage = NavigationPage;
         }
-
+        public static CustomNavigationPage NavigationPage { get; set; }
         protected override void OnStart()
         {
             // Handle when your app starts
