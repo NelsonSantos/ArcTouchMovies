@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="ArcTouchMovies.CustomViews.MovieDetailsVertical">
+    <ContentView.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <forms:CachedImage 
+                AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,1,.40"
+                Aspect="AspectFill"
+                CacheDuration="5"
+                CacheType="Disk"
+                Source="{Binding SelectedMovie.Backdrop}"
+            ></forms:CachedImage>
+            <Button 
+                AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".5,.20,72,72"
+                FontSize="50" FontAttributes="None"
+                Text="&#xf144;" BackgroundColor="Transparent" TextColor="White" FontFamily="{StaticResource FontAwesomeName}" />
+            <StackLayout 
+                AbsoluteLayout.LayoutFlags="PositionProportional,SizeProportional" AbsoluteLayout.LayoutBounds="0,1,1,.60"
+                Padding="10"
+                Spacing="0"
+                Orientation="Vertical"
+                BackgroundColor="#202020">
+                <Label Text="{Binding SelectedMovie.Title}" Style="{StaticResource DetailsLabel}" FontSize="20" FontAttributes="Bold"></Label>
+                <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="FillAndExpand">
+                    <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource DetailsLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="&#xf274; " FontFamily="{StaticResource FontAwesomeName}"/>
+                                <Span Text="{Binding SelectedMovie.ReleaseDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding SelectedMovie.GenreList}" Style="{StaticResource DetailsLabel}" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10" Margin="0, 10, 0, 0">
+                    <forms:CachedImage Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                                   Aspect="AspectFit"
+                                   CacheDuration="5"
+                                   CacheType="Disk"
+                                   DownsampleToViewSize="True"
+                                   Source="{Binding SelectedMovie.Poster}"
+                                   WidthRequest="100"/>
+                    <Label Style="{StaticResource DetailsLabel}" Text="{Binding SelectedMovie.Overview}" />
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

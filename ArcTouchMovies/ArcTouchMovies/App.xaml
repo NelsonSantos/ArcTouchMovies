@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:arcTouchMovies="clr-namespace:ArcTouchMovies;assembly=ArcTouchMovies"
+             x:Class="ArcTouchMovies.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <OnPlatform x:Key="FontAwesomeName" x:TypeArguments="x:String" 
+                        Android="fa-solid-900.ttf#Font Awesome 5 Free Regular" 
+                        iOS="Font Awesome 5 Free"/>
+            <!--<Color x:Key="NavigationPrimary">#2196F3</Color>-->
+            <Color x:Key="NavigationPrimary">#202020</Color>
+            <Style TargetType="arcTouchMovies:CustomNavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            <Style x:Key="DetailsLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
